@@ -40,6 +40,13 @@ public class AUTHENTICATION extends AppCompatActivity {
     FirebaseAuth FIREBASEAUTH;
     RecyclerView recyclerView;
 
+    @Override
+    public void onBackPressed(){
+        Intent AUTH;
+        AUTH = new Intent(AUTHENTICATION.this, AUTHENTICATION.class);
+        startActivity(AUTH);
+    }
+
     private void INIT(){
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
@@ -130,7 +137,7 @@ public class AUTHENTICATION extends AppCompatActivity {
                                 if (LOGIN.isSuccessful()){
                                     FirebaseUser USER = FIREBASEAUTH.getCurrentUser();
                                     Toast.makeText(getApplicationContext(), "Welcome Back " + USER + "!",
-                                            Toast.LENGTH_SHORT)
+                                            Toast.LENGTH_LONG)
                                             .show();
                                     TOMUSICPLAYER = new Intent(AUTHENTICATION.this, MUSICPLAYER.class);
                                     startActivity(TOMUSICPLAYER);

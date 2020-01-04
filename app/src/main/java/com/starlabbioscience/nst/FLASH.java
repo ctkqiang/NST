@@ -27,9 +27,9 @@ public class FLASH extends AppCompatActivity {
         HANDLER.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent TOMAIN;
-                TOMAIN = new Intent(FLASH.this, AUTHENTICATION.class);
-                startActivity(TOMAIN);
+                Intent AUTH;
+                AUTH = new Intent(FLASH.this, AUTHENTICATION.class);
+                startActivity(AUTH);
             }
         }, 4010);
     }
