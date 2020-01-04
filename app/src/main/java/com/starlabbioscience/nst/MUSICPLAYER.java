@@ -1,4 +1,9 @@
 package com.starlabbioscience.nst;
+/*
+ * 주의 와 메모리를위한 소프트웨어입니다. 그
+ * 것은 나쁜 생각이지만 어쨌든 그것을하고,
+ * 나는 상사가 아니에요 :)
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,10 +56,10 @@ public class MUSICPLAYER extends AppCompatActivity {
         ATTENTION = findViewById(R.id.Attention);
         MEMORY = findViewById(R.id.Memory);
 
-        A = MediaPlayer.create(MUSICPLAYER.this, R.raw.somethingsomething);
+       // A = MediaPlayer.create(MUSICPLAYER.this, R.raw);
         A.setAudioStreamType(AudioManager.STREAM_MUSIC);
         A.setVolume(0b1010000, 0b1010000);
-        M = MediaPlayer.create(MUSICPLAYER.this, R.raw.temporary);
+       // M = MediaPlayer.create(MUSICPLAYER.this, R.raw.somethingsomething);
         M.setAudioStreamType(AudioManager.STREAM_MUSIC);
         M.setVolume(0b1010000, 0b1010000);
 
@@ -65,8 +70,13 @@ public class MUSICPLAYER extends AppCompatActivity {
                     ATTENTION.setBackgroundResource(R.mipmap.atention);
                     A.pause();
                 } else {
-                    ATTENTION.setBackgroundResource(R.mipmap.attentionplay);
-                    A.start();
+                    if (M.isPlaying()){
+                        MEMORY.setBackgroundResource(R.mipmap.mmemory);
+                        M.pause();
+                    } else {
+                        ATTENTION.setBackgroundResource(R.mipmap.attentionplay);
+                        A.start();
+                    }
                 }
             }
         });
@@ -78,9 +88,13 @@ public class MUSICPLAYER extends AppCompatActivity {
                     MEMORY.setBackgroundResource(R.mipmap.mmemory);
                     M.pause();
                 } else {
-                    MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
-                    M.start();
-
+                    if(A.isPlaying()){
+                        ATTENTION.setBackgroundResource(R.mipmap.atention);
+                        A.pause();
+                    } else {
+                        MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
+                        M.start();
+                    }
                 }
             }
         });

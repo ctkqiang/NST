@@ -28,7 +28,7 @@ public class FLASH extends AppCompatActivity {
             @Override
             public void run() {
                 Intent TOMAIN;
-                TOMAIN = new Intent(FLASH.this, MUSICPLAYER.class);
+                TOMAIN = new Intent(FLASH.this, AUTHENTICATION.class);
                 startActivity(TOMAIN);
             }
         }, 4010);
