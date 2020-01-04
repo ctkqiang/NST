@@ -2,8 +2,11 @@ package com.starlabbioscience.nst;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -15,9 +18,10 @@ import android.widget.Button;
  * @PROJECT: NST
  * @DATE_STARTED: 2 JANUARY 2020
  */
+
 public class MUSICPLAYER extends AppCompatActivity {
 
-    MediaPlayer NST;
+    MediaPlayer A, M;
     Button ATTENTION, MEMORY;
 
     @Override
@@ -26,50 +30,65 @@ public class MUSICPLAYER extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        A.stop();
+        M.stop();
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ATTENTION = findViewById(R.id.Attention);
         MEMORY = findViewById(R.id.Memory);
+
+
     }
 
     public void onClick(View view){
         switch(view.getId()){
             case R.id.Attention:
-                NST = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
-                NST.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                NST.setVolume(0b1010000, 0b1010000);
-                NST.setLooping(false);
-                if (NST.isPlaying()){
-                    NST.pause();
+                A = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
+                A.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                A.setVolume(0b1010000, 0b1010000);
+                A.setLooping(false);
+                if (A.isPlaying()){
+                    A.pause();
+                    A.stop();
+                    A.release();
                     ATTENTION.setBackgroundResource(R.mipmap.atention);
-                    ATTENTION.setBackgroundResource(R.mipmap.attentionplay);
                 } else {
-                    NST.start();
+                    A.start();
                     ATTENTION.setBackgroundResource(R.mipmap.attentionplay);
+                }
+
+                if (!A.isPlaying()){
                     ATTENTION.setBackgroundResource(R.mipmap.atention);
+                } else {
+                    System.out.println("NOPE");
                 }
                 break;
 
             case R.id.Memory:
-                NST = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
-                NST.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                NST.setVolume(0b1010000, 0b1010000);
-                NST.setLooping(false);
-                if (NST.isPlaying()){
-                    NST.pause();
+                M = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
+                M.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                M.setVolume(0b1010000, 0b1010000);
+                M.setLooping(false);
+                if (M.isPlaying()){
+                    M.pause();
                     MEMORY.setBackgroundResource(R.mipmap.mmemory);
-                    MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
                 } else {
-                    NST.start();
+                    M.start();
                     MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
-                    for (int loop = 0b0; loop < 0b101; loop++){
-                        System.out.println("---");
-                    }
-                    MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
-                    MEMORY.setBackgroundResource(R.mipmap.mmemory);
-
                 }
                 break;
         }
