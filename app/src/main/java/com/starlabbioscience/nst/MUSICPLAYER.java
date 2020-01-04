@@ -7,6 +7,8 @@ package com.starlabbioscience.nst;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -16,6 +18,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * @AUTHOR : JOHN MELODY ME
@@ -28,6 +32,8 @@ public class MUSICPLAYER extends AppCompatActivity {
 
     MediaPlayer A, M;
     Button ATTENTION, MEMORY;
+    AlertDialog.Builder alertdialogbuilder;
+    FirebaseAuth FIREBASEAUTH;
 
     @Override
     public void onStart(){
@@ -36,8 +42,24 @@ public class MUSICPLAYER extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
-        finish();
+        //super.onBackPressed();
+        alertdialogbuilder = new AlertDialog.Builder(this);
+        alertdialogbuilder.setMessage("Sign Out?");
+        alertdialogbuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FIREBASEAUTH.signOut();
+            }
+        });
+        alertdialogbuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog;
+        alertDialog = alertdialogbuilder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -56,10 +78,12 @@ public class MUSICPLAYER extends AppCompatActivity {
         ATTENTION = findViewById(R.id.Attention);
         MEMORY = findViewById(R.id.Memory);
 
+        FIREBASEAUTH = FirebaseAuth.getInstance();
+
         A = MediaPlayer.create(MUSICPLAYER.this, R.raw.attention);
         A.setAudioStreamType(AudioManager.STREAM_MUSIC);
         A.setVolume(0b1010000, 0b1010000);
-        M = MediaPlayer.create(MUSICPLAYER.this, R.raw);
+        M = MediaPlayer.create(MUSICPLAYER.this, R.raw.memory);
         M.setAudioStreamType(AudioManager.STREAM_MUSIC);
         M.setVolume(0b1010000, 0b1010000);
 

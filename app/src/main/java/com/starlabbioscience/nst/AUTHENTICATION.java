@@ -8,6 +8,7 @@ package com.starlabbioscience.nst;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 /**
  * @AUTHOR : JOHN MELODY ME
  * @COPYRIGHT : BRAINTECH SDN BHD || STARLABS BIOSCIENCE SDN BHD
@@ -35,15 +38,18 @@ public class AUTHENTICATION extends AppCompatActivity {
     EditText email, password;
     Button login, register;
     FirebaseAuth FIREBASEAUTH;
+    RecyclerView recyclerView;
 
     private void INIT(){
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
 
         email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        password = findViewById(R.id.Password);
 
         FIREBASEAUTH = FirebaseAuth.getInstance();
+
+        recyclerView = findViewById(R.id.VIEW);
     }
 
     @Override
@@ -51,6 +57,35 @@ public class AUTHENTICATION extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         INIT();
+        /*
+        DATA data;
+        data = new DATA();
+        data.setEMAIL(email.getText().toString());
+        data.setPASSWORD(password.getText().toString());
+
+        new DataManipulator().readData(new DataManipulator.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<DATA> NST_DATA, List<String> keys) {
+                new CONFIG().setConfig(recyclerView, AUTHENTICATION.this,
+                        NST_DATA, keys);
+            }
+
+            @Override
+            public void DataIsInserted() {
+                System.out.println("DATA SAVED");
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+         */
     }
 
     public void Authentication(View whateverView){
