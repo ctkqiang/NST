@@ -9,6 +9,7 @@ package com.starlabbioscience.nst;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -53,18 +54,20 @@ public class AUTHENTICATION extends AppCompatActivity {
     }
 
     public void Authentication(View whateverView){
+        String EMAIL, PASSWORD, ERR_EMAIL, ERR_PASSW, ERR_PASSLENGTH;
+        EMAIL = email
+                .getText()
+                .toString();
+        PASSWORD = password
+                .getText()
+                .toString();
+        ERR_EMAIL = "PLEASE ENTER EMAIL";
+        ERR_PASSW = "PLEASE ENTER PASSWORD";
+        ERR_PASSLENGTH = "PLEASE ENTER A STRONG PASSWORD";
+
         switch (whateverView.getId()){
             case R.id.login:
-                String EMAIL, PASSWORD, ERR_EMAIL, ERR_PASSW, ERR_PASSLENGTH;
-                EMAIL = email
-                        .getText()
-                        .toString();
-                PASSWORD = password
-                        .getText()
-                        .toString();
-                ERR_EMAIL = "PLEASE ENTER EMAIL";
-                ERR_PASSW = "PLEASE ENTER PASSWORD";
-                ERR_PASSLENGTH = "PLEASE ENTER A STRONG PASSWORD";
+
 
                 if (TextUtils.isEmpty(EMAIL)){
                     email.setError(ERR_EMAIL);
@@ -87,12 +90,15 @@ public class AUTHENTICATION extends AppCompatActivity {
                 FIREBASEAUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
                         .addOnCompleteListener(AUTHENTICATION.this, new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
+                            public void onComplete(@NonNull Task<AuthResult> LOGIN) {
+                                Intent TOMUSICPLAYER;
+                                if (LOGIN.isSuccessful()){
                                     FirebaseUser USER = FIREBASEAUTH.getCurrentUser();
                                     Toast.makeText(getApplicationContext(), "Welcome Back " + USER + "!",
                                             Toast.LENGTH_SHORT)
                                             .show();
+                                    TOMUSICPLAYER = new Intent(AUTHENTICATION.this, MUSICPLAYER.class);
+                                    startActivity(TOMUSICPLAYER);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Login Failed",
                                             Toast.LENGTH_SHORT)
@@ -100,7 +106,45 @@ public class AUTHENTICATION extends AppCompatActivity {
                                 }
                             }
                         });
+                break;
+
+            case R.id.register:
+                if (TextUtils.isEmpty(EMAIL)){
+                    email.setError(ERR_EMAIL);
+                }  else {
+                    System.out.println("EMAIL ENTERED");
+                }
+
+                if (TextUtils.isEmpty(PASSWORD)){
+                    password.setError(ERR_PASSW);
+                } else {
+                    System.out.println("PASSWORD ENTERED");
+                }
+
+                if (password.length() <= 0b110){
+                    password.setError(ERR_PASSLENGTH);
+                } else {
+                    System.out.println("PASSWORD IS STRONG");
+                }
+
+                FIREBASEAUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                        .addOnCompleteListener(AUTHENTICATION.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> REGISTER) {
+                                Intent TOMUSICPLAYER;
+                                if (REGISTER.isSuccessful()){
+                                    FirebaseUser USER = FIREBASEAUTH.getCurrentUser();
+                                    Toast.makeText(getApplicationContext(), USER + "REGISTERED",
+                                            Toast.LENGTH_SHORT)
+                                            .show();
+                                    TOMUSICPLAYER = new Intent(AUTHENTICATION.this, MUSICPLAYER.class);
+                                    startActivity(TOMUSICPLAYER);
+                                }
+                            }
+                        });
 
         }
+
+
     }
 }

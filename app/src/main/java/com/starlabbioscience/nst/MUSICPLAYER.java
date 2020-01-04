@@ -56,10 +56,10 @@ public class MUSICPLAYER extends AppCompatActivity {
         ATTENTION = findViewById(R.id.Attention);
         MEMORY = findViewById(R.id.Memory);
 
-       // A = MediaPlayer.create(MUSICPLAYER.this, R.raw);
+        A = MediaPlayer.create(MUSICPLAYER.this, R.raw.attention);
         A.setAudioStreamType(AudioManager.STREAM_MUSIC);
         A.setVolume(0b1010000, 0b1010000);
-       // M = MediaPlayer.create(MUSICPLAYER.this, R.raw.somethingsomething);
+        M = MediaPlayer.create(MUSICPLAYER.this, R.raw);
         M.setAudioStreamType(AudioManager.STREAM_MUSIC);
         M.setVolume(0b1010000, 0b1010000);
 
