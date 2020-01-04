@@ -51,46 +51,38 @@ public class MUSICPLAYER extends AppCompatActivity {
         ATTENTION = findViewById(R.id.Attention);
         MEMORY = findViewById(R.id.Memory);
 
+        A = MediaPlayer.create(MUSICPLAYER.this, R.raw.somethingsomething);
+        A.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        A.setVolume(0b1010000, 0b1010000);
+        M = MediaPlayer.create(MUSICPLAYER.this, R.raw.temporary);
+        M.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        M.setVolume(0b1010000, 0b1010000);
 
-    }
-
-    public void onClick(View view){
-        switch(view.getId()){
-            case R.id.Attention:
-                A = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
-                A.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                A.setVolume(0b1010000, 0b1010000);
-                A.setLooping(false);
-                if (A.isPlaying()){
+        ATTENTION.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (A.isPlaying()) {
+                    ATTENTION.setBackgroundResource(R.mipmap.atention);
                     A.pause();
-                    A.stop();
-                    A.release();
-                    ATTENTION.setBackgroundResource(R.mipmap.atention);
                 } else {
-                    A.start();
                     ATTENTION.setBackgroundResource(R.mipmap.attentionplay);
+                    A.start();
                 }
+            }
+        });
 
-                if (!A.isPlaying()){
-                    ATTENTION.setBackgroundResource(R.mipmap.atention);
-                } else {
-                    System.out.println("NOPE");
-                }
-                break;
-
-            case R.id.Memory:
-                M = MediaPlayer.create(MUSICPLAYER.this, R.raw.gta);
-                M.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                M.setVolume(0b1010000, 0b1010000);
-                M.setLooping(false);
+        MEMORY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (M.isPlaying()){
-                    M.pause();
                     MEMORY.setBackgroundResource(R.mipmap.mmemory);
+                    M.pause();
                 } else {
-                    M.start();
                     MEMORY.setBackgroundResource(R.mipmap.mmemory_playingime);
+                    M.start();
+
                 }
-                break;
-        }
+            }
+        });
     }
 }
