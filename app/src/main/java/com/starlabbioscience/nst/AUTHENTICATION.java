@@ -151,6 +151,11 @@ public class AUTHENTICATION extends AppCompatActivity {
                 break;
 
             case R.id.register:
+                Toast.makeText(getApplicationContext(), "PLEASE CONTACT PER SON IN CHARGE FOR REGISTRATION",
+                        Toast.LENGTH_LONG)
+                        .show();
+
+                /*
                 if (TextUtils.isEmpty(EMAIL)){
                     email.setError(ERR_EMAIL);
                 }  else {
@@ -184,6 +189,8 @@ public class AUTHENTICATION extends AppCompatActivity {
                                 }
                             }
                         });
+
+                 */
 
         }
 

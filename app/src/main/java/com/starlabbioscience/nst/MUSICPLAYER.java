@@ -49,12 +49,12 @@ public class MUSICPLAYER extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FIREBASEAUTH.signOut();
+                finish();
             }
         });
         alertdialogbuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
             }
         });
         AlertDialog alertDialog;
