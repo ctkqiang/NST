@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ADMIN_CLIENTDATA"></activity>
+        <activity android:name=".ADMIN_CLIENTDATA"/>
         <activity android:name=".AUTHENTICATION" />
         <activity android:name=".MUSICPLAYER" />
         <activity
